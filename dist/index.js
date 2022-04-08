@@ -8483,7 +8483,7 @@ const autoCLosingIssues = async () => {
 
     if (!prNameSplited[0] === 'issue') return;
 
-    octokit.rest.issues.close_issue(repo, prNameSplited[1].split('-')[0]);
+    octokit.rest.issues.closeIssue(repo, prNameSplited[1].split('-')[0]);
   } catch (error) {
     core.setFailed(error.message);
   }
