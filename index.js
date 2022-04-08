@@ -4,6 +4,7 @@ const github = require('@actions/github');
 const autoCLosingIssues = async () => {
   try {
     const repo = core.getInput('repo', { required: true });
+    const owner = core.getInput('owner', { required: true });
     const prName = core.getInput('prName', { required: true });
     const token = core.getInput('token', { required: true });
 
@@ -13,7 +14,14 @@ const autoCLosingIssues = async () => {
 
     if (!prNameSplited[0] === 'issue') return;
 
-    octokit.rest.issues.closeIssue(repo, prNameSplited[1].split('-')[0]);
+    octokit.rest.issues.update(
+      {
+        owner,
+        repo, 
+        issue_number: prNameSplited[1].split('-')[0],
+        state: "closed"
+      }
+      );
   } catch (error) {
     core.setFailed(error.message);
   }
