@@ -8482,16 +8482,16 @@ const autoCLosingIssues = async () => {
 
     const prNameSplited = prName.split('/');
 
-    if (!prNameSplited[0] === 'issue') return;
+    if (prNameSplited[0] !== 'issue') return;
 
     octokit.rest.issues.update(
       {
         owner,
-        repo, 
+        repo,
         issue_number: prNameSplited[1].split('-')[0],
-        state: "closed"
-      }
-      );
+        state: 'closed',
+      },
+    );
   } catch (error) {
     core.setFailed(error.message);
   }
